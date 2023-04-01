@@ -3,13 +3,13 @@
 	"contentVersion": "1.0.0.0",
 	"parameters": {
 		"factoryName": {
-			"value": "msazureadf-dev"
+			"value": "msazureadf-test"
 		},
 		"ls_adls_accountKey": {
 			"value": ""
 		},
 		"ls_adls_properties_typeProperties_url": {
-			"value": "https://msazureadlsdev.dfs.core.windows.net/"
+			"value": "https://msazureadlstest.dfs.core.windows.net/"
 		}
 	}
 }
