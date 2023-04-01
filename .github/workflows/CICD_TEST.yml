@@ -20,7 +20,7 @@ jobs:
         uses: Azure/data-factory-export-action@v1.2.0
         with:
           path: ADFIntegration
-          id: /subscriptions/66c4f000-9f32-4f19-8a94-8da1e61cf95f/resourceGroups/cicd/providers/Microsoft.DataFactory/factories/msazureadf-dev
+#           id: /subscriptions/66c4f000-9f32-4f19-8a94-8da1e61cf95f/resourceGroups/cicd/providers/Microsoft.DataFactory/factories/msazureadf-dev
 
       - name: Upload ARM templates artifact
         uses: actions/upload-artifact@v3.1.1
