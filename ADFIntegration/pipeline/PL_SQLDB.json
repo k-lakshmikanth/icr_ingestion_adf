@@ -38,13 +38,19 @@
 				"inputs": [
 					{
 						"referenceName": "emp_src",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"src_schema": "dev"
+						}
 					}
 				],
 				"outputs": [
 					{
 						"referenceName": "emp_trg",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"trg_schema": "dev"
+						}
 					}
 				]
 			}
