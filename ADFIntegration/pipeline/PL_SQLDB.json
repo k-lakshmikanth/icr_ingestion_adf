@@ -43,7 +43,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "AzureSqlTable1",
+						"referenceName": "emp_trg",
 						"type": "DatasetReference"
 					}
 				]

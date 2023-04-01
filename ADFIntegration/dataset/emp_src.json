@@ -5,6 +5,11 @@
 			"referenceName": "AzureSqlDatabase1",
 			"type": "LinkedServiceReference"
 		},
+		"parameters": {
+			"src_schema": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "AzureSqlTable",
 		"schema": [
@@ -19,7 +24,10 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "DEV",
+			"schema": {
+				"value": "@dataset().src_schema",
+				"type": "Expression"
+			},
 			"table": "EMP_SRC"
 		}
 	}
