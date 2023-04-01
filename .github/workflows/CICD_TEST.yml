@@ -1,0 +1,59 @@
+name: Deploy ICR Ingestion ADF
+run-name: Deploy ICR Ingestion ADF
+
+on:
+  push:
+    branches:
+      - adf_publish
+  workflow_dispatch:
+    
+jobs:
+  build_ARM_templates:
+    name: Build ARM templates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3.2.0
+        
+      - name: Export ARM templates
+        id: export
+        uses: Azure/data-factory-export-action@v1.2.0
+
+      - name: Upload ARM templates artifact
+        uses: actions/upload-artifact@v3.1.1
+        with:
+          name: armtemplates
+          path: ${{steps.export.outputs.arm-template-directory }}
+          if-no-files-found: error
+
+  deploy_to_uat_ingestion_adf:
+    # if: ${{ github.ref == 'refs/heads/uat' || github.ref_name == 'uat' }}
+    needs: [build_ARM_templates]
+    name: Deploy to uat ADF
+    runs-on: ubuntu-latest
+    environment: uat
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3.2.0
+
+      - name: Login to Azure
+        uses: azure/login@v1.4.6
+        with:
+          creds: ${{secrets.ICR_UAT_SPN_KEY_CREDENTIALS_JSON }}
+          enable-AzPSSession: true
+
+      - name: Download ARM templates artifact
+        uses: actions/download-artifact@v3.0.1
+        with:
+          name: armtemplates
+          path: armtemplates
+
+      - name: Deploy to uat
+        uses: Azure/data-factory-deploy-action@v1.2.0
+        with:
+          resourceGroupName: ${{ secrets.ICR_UAT_INGESTION_ADF_RESOURCE_GROUP_NAME}}
+          dataFactoryName: ${{ secrets.ICR_UAT_INGESTION_DATA_FACTORY_NAME}}
+          armTemplateFile: ./armtemplates/ARMTemplateForFactory.json
+          armTemplateParametersFile: ./TEST-ARMTemplateParametersForFactory.json
+
+################### End of workflow file ###################
