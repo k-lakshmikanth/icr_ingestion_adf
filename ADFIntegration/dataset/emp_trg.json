@@ -1,9 +1,14 @@
 {
-	"name": "AzureSqlTable1",
+	"name": "emp_trg",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureSqlDatabase1",
 			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"trg_schema": {
+				"type": "string"
+			}
 		},
 		"annotations": [],
 		"type": "AzureSqlTable",
@@ -19,7 +24,10 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "DEV",
+			"schema": {
+				"value": "@dataset().trg_schema",
+				"type": "Expression"
+			},
 			"table": "EMP_TRG"
 		}
 	}
